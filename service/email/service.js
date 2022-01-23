@@ -1,25 +1,27 @@
 import Mailgen from 'mailgen'
 
-const link = (env) => {
+const getLink = (env) => {
+    let link
     switch (env) {
         case 'development':
-            return 'http://localhost:3000/'
+            link = 'http://localhost:3000/'
             break
         case 'test':
-            return 'http://localhost:5000/'
+            link = 'http://localhost:5000/'
             break
         case 'production':
-            return 'http://heroku/'
+            link = 'http://heroku/'
             break
         default:
-            return 'http://localhost:3000/'
+            link = 'http://localhost:3000/'
     }
+    return link
 }
 
 class EmailService { 
     constructor(env, sender) {
         this.sender = sender
-        this.link = link(env)
+        this.link = getLink(env)
     }
 
     createEmailTemplate(userName, verifyToken) {
